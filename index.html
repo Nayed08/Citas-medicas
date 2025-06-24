@@ -1,378 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tucita.db</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --color-primary: #68ccc1; /* Aguamarina oscuro */
-            --color-secondary: #ADD8E6; /* Aguamarina claro */
-            --color-text: #333;
-            --color-background: #f4f7f6;
-            --border-radius: 15px;
-            --padding-section: 40px;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: var(--color-background);
-            color: var(--color-text);
-            line-height: 1.6;
-        
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* --- Encabezado --- */
-        header {
-            background-color: #fff;
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--color-primary);
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        .nav-menu li {
-            margin-left: 25px;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--color-text);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu a:hover {
-            color: var(--color-primary);
-        }
-
-        /* --- Sección Principal (Presentación) --- */
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            padding: var(--padding-section) 0;
-            text-align: center;
-        }
-
-        .hero-image-container {
-            width: 100%;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-        }
-
-        .hero-image-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .hero-content {
-            width: 100%;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: var(--border-radius);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
-        }
-
-        .hero-content h1 {
-            color: var(--color-primary);
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-
-        .hero-content p {
-            font-size: 1.1em;
-            color: #555;
-        }
-
-        /* --- Sección Misión/Visión --- */
-        .mv-section {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            padding: var(--padding-section) 0;
-            background-color: #fff;
-            border-radius: var(--border-radius);
-            margin: 30px auto;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
-        }
-
-        .mv-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .mv-item img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: var(--border-radius);
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .mv-item h2 {
-            color: var(--color-primary);
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-
-        .mv-item p {
-            color: #666;
-            font-size: 1em;
-        }
-
-        /* --- Sección del Formulario --- */
-        .form-section {
-            padding: var(--padding-section) 0;
-        }
-
-        .appointment-form {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .appointment-form h2 {
-            text-align: center;
-            color: var(--color-primary);
-            margin-bottom: 30px;
-            font-size: 2em;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="date"],
-        .form-group select {
-            width: calc(100% - 20px); /* Ajuste para el padding */
-            padding: 12px 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            box-sizing: border-box; /* Incluye padding y border en el ancho total */
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(70, 130, 180, 0.2);
-            outline: none;
-        }
-
-        .form-group select {
-            appearance: none; /* Elimina estilos por defecto del select en algunos navegadores */
-            background-image: 
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 10px;
-            padding-right: 30px; /* Espacio para el icono */
-        }
-
-        button[type="submit"] {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: var(--color-primary);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #3a6b99; /* Un tono más oscuro */
-            transform: translateY(-2px);
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 50px;
-            background-color: var(--color-primary);
-            color: white;
-            font-size: 0.9em;
-            border-top-left-radius: var(--border-radius);
-            border-top-right-radius: var(--border-radius);
-        }
-
-        /* --- Media Queries (para adaptabilidad) --- */
-
-        /* Escritorio: Diseño de dos columnas para Hero y Misión/Visión */
-        @media (min-width: 968px) {
-            .hero-section {
-                flex-direction: row;
-                text-align: left;
-            }
-
-            .hero-image-container, .hero-content {
-                width: 150%;
-                
-            }
-
-            .hero-image-container {
-                order: -26; /* Mueve la imagen a la izquierda */
-            }
-
-            .mv-section {
-                flex-direction: row;
-                justify-content: space-around;
-                align-items: flex-start;
-            }
-
-            .mv-item {
-                width: 45%; /* Ajuste para dos columnas */
-                padding: 0;
-
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Formulario</title>
 </head>
-<body>
 
-    <header>
+<body>
+<header>
         <div class="container navbar">
             <a href="#" class="logo">TuLogoAquí</a>
-            <img src="" alt="logo">
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#quienes-somos">Quiénes Somos</a></li>
                     <li><a href="#mision-vision">Misión/Visión</a></li>
                     <li><a href="#formulario">Pedir Cita</a></li>
-                    
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-      
         <section id="inicio" class="hero-section container">
             <div class="hero-image-container">
-                <img src="inicio.jpg" alt="Imagen Grande de Página de Citas">
+                <img src="inicio.png" alt="Imagen Grande de Página de Citas">
             </div>
             <div class="hero-content">
-                <h1>Tu cita asistida</h1>
-                <p>Facilitar el acceso a la salud a personas adultas mayores que no manejan herramientas digitales, mediante un servicio cálido, eficiente y personalizado de gestión de citas médicas, apoyado en la tecnología y la empatía humana.!</p>
-            </div>
-        </section>
-  </section>
-
-        <section id="Quienes Somos" class="mv-section container">
-            <div class="mv-item">
-                
-                <h2> Quienes somos</h2>
-                <p>Somos un emprendimiento social enfocado en brindar apoyo a personas que necesitan ayuda para agendar sus citas médicas. Nos especializamos en acompañar a adultos mayores y asistirlos en el uso de la tecnología, facilitando sus trámites de salud con amabilidad, claridad y compromiso..</p>
-            </div>
-            <div class="mv-item">
-                
-                <h2>Nuestros servicios</h2>
-                <ul>
-                  <li>Agendamiento de citas médicas:Te ayudamos a programar tus citas con EPS o servicios médicos particulares, sin complicaciones.</li>
-                  <li>Recordatorio de citas: Te enviamos recordatorios por mensaje o llamada para que no se te pase ninguna consulta</li>
-                  <li>Acompañamiento personalizado: Te orientamos en el proceso si tienes dudas o dificultades con los trámites médicos</li>
-                  <li>Asesoría para adultos mayores: Brindamos atención especial a quienes no manejan la tecnología, con paciencia y claridad.</li>
-              <li>Soporte vía WhatsApp:Puedes comunicarte fácilmente con nosotros para cualquier duda o solicitud urgente</li>
-                </ul>
+                <h1>Bienvenido a Nuestra Página de Citas</h1>
+                <p>Facilitamos tu acceso a servicios de salud de manera rápida y sencilla. ¡Agenda tu próxima cita con nosotros!</p>
             </div>
         </section>
 
+        <section id="quienes-somos" class="hero-section container">
+            <div class="hero-content">
+                <h1>Quiénes Somos</h1>
+                <p>Somos un equipo comprometido con tu bienestar. Nuestra plataforma ha sido diseñada para brindarte una experiencia ágil y eficiente al momento de gestionar tus citas médicas y trámites relacionados.</p>
+                <p>Trabajamos día a día para conectar a los pacientes con los mejores profesionales y centros de salud, garantizando un servicio de calidad y la atención que mereces.</p>
+            </div>
+            <div class="hero-image-container">
+                <img src="https://via.placeholder.com/600x400/ADD8E6/000000?text=Nuestro+Equipo" alt="Imagen de Nuestro Equipo">
+            </div>
         </section>
 
         <section id="mision-vision" class="mv-section container">
             <div class="mv-item">
-                <img src="mision.jpg" alt="Icono de Misión">
+                <img src="mision.png" alt="Icono de Misión">
                 <h2>Nuestra Misión</h2>
-                <p>Facilitar el acceso a la salud a personas adultas mayores que no manejan herramientas digitales, mediante un servicio cálido, eficiente y personalizado de gestión de citas médicas, apoyado en la tecnología y la empatía humana.</p>
+                <p>Proveer una plataforma intuitiva y segura que simplifique el proceso de agendamiento de citas y la gestión de trámites de salud, mejorando la calidad de vida de nuestros usuarios.</p>
             </div>
             <div class="mv-item">
-                <img src="vision.jpg" alt="Icono de Visión">
+                <img src="vision.png" alt="Icono de Visión">
                 <h2>Nuestra Visión</h2>
-                <p>Ser la plataforma de referencia en Colombia para la gestión de citas médicas de adultos mayores, construyendo puentes entre la tecnología y las personas, con un enfoque humano, accesible y confiable.</p>
+                <p>Ser la plataforma líder en Colombia para la gestión de citas y servicios de salud, reconocida por su eficiencia, accesibilidad y el compromiso con el bienestar de la comunidad.</p>
             </div>
         </section>
 
-        <section id="formulario" class="form-section container">
-            <div class="appointment-form">
-                <h2>Agenda Tu Cita Ahora</h2>
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="nombre">Nombre Completo:</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cedula">Cédula:</label>
-                        <input type="text" id="cedula" name="cedula" placeholder="Ingresa tu número de cédula" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="correo">Correo:</label>
-                        <input type="email" id="correo" name="correo" placeholder="ejemplo@dominio.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha1">Fecha 1:</label>
-                        <input type="date" id="fecha1" name="fecha1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha2">Fecha 2:</label>
-                        <input type="date" id="fecha2" name="fecha2">
-                    </div>
-                    <div class="form-group">
+
+  <h2>Registrar Usuario</h2>
+  <form method="POST" action="welcome.php">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required><br><br>
+
+    <label>Cédula:</label>
+    <input type="text" name="cedula" required><br><br>
+
+    <label>Teléfono:</label>
+    <input type="text" name="telefono"><br><br>
+
+    <label>Correo:</label>
+    <input type="email" name="correo"><br><br>
+
+  <div class="form-group">
+  <label for="fecha1">Fecha Posible 1:</label>
+  <input type="date" id="fecha1" name="fecha1" required>
+</div>
+
+<div class="form-group">
+  <label for="fecha2">Fecha Posible 2:</label>
+  <input type="date" id="fecha2" name="fecha2" required>
+</div>
+
+ <div class="form-group">
                         <label for="eps">EPS:</label>
                         <select id="eps" name="eps" required>
                             <option value="">Selecciona tu EPS</option>
@@ -384,39 +92,29 @@
                             <option value="otra">Otra</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="tipo-cita">Tipo de Cita:</label>
-                        <select id="tipo-cita" name="tipo_cita" required>
-                            <option value="">Selecciona el tipo de cita</option>
-                            <option value="medicina-general">Medicina General</option>
-                            <option value="odontologia">Odontología</option>
-                            <option value="pediatria">Pediatría</option>
-                            <option value="dermatologia">Dermatología</option>
-                            <option value="ginecologia">Ginecología</option>
-                            <option value="laboratorio">Laboratorio</option>
-                            <option value="vacunacion">Vacunación</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="turno-medicamentos">Turno de medicamentos:</label>
-                        <input type="text" id="turno-medicamentos" name="turno_medicamentos" placeholder="Ej: Si o No">
-                    </div>
-                    <button type="submit">Enviar Solicitud</button>
-                </form>
-            </div>
-        </section>
-    </main>
+                   <div class="form-group">
+  <label for="tipo-cita">Tipo de Cita:</label>
+  <select id="tipo-cita" name="tipo_cita" required>
+    <option value="">Selecciona el tipo de cita</option>
+    <option value="medicina-general">Medicina General</option>
+    <option value="odontologia">Odontología</option>
+    <option value="pediatria">Pediatría</option>
+    <option value="dermatologia">Dermatología</option>
+    <option value="ginecologia">Ginecología</option>
+    <option value="laboratorio">Laboratorio</option>
+    <option value="vacunacion">Vacunación</option>
+  </select>
+</div>
+<div class="form-group">
+  <label for="turno-medicamentos">¿Reclamará Medicamentos?</label>
+  <select id="turno-medicamentos" name="turno_medicamentos" required>
+    <option value="">Selecciona una opción</option>
+    <option value="si">Sí</option>
+    <option value="no">No</option>
+  </select>
+</div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Tu Empresa. Todos los derechos reservados.</p>
-        </div>
-        <a href="#">Terminos y conciciones</a>
-        <input type="sumit" name= "send" class= btn value= "enviar">
-    </footer>
-  
-    <?php
-    include("send.php");
-    ?>
+    <button type="submit">Enviar</button>
+  </form>
 </body>
 </html>
